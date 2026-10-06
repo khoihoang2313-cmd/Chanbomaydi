@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>ZTECH • Mobile Optimizer</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  min-height:100vh;
+  background:#050507;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 25%,rgba(255,0,80,.12),transparent 35%),
+    radial-gradient(circle at 50% 80%,rgba(255,0,80,.06),transparent 40%);
+  pointer-events:none;
+}
+
+.app{
+  width:min(100%,480px);
+  min-height:100vh;
+  margin:auto;
+  padding:22px 20px 90px;
+}
+
+/* ================= KEY ================= */
+
+#login{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.login-box{
+  width:100%;
+  padding:42px 24px 32px;
+  border:1px solid #ff1760;
+  border-radius:28px;
+  background:linear-gradient(180deg,#0d0d12,#08080b);
+  box-shadow:
+    0 0 15px rgba(255,0,80,.45),
+    0 0 55px rgba(255,0,80,.16),
+    inset 0 0 30px rgba(255,0,80,.03);
+  text-align:center;
+}
+
+.logo{
+  width:105px;
+  height:105px;
+  margin:auto;
+  border-radius:27px;
+  border:2px solid #ff1760;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  font-weight:900;
+  color:#ff276b;
+  text-shadow:0 0 15px #ff1760;
+  box-shadow:0 0 30px rgba(255,0,80,.5);
+  background:
+    radial-gradient(circle,#300813,#08080b 70%);
+}
+
+.title{
+  margin-top:30px;
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:5px;
+  color:#ff276b;
+  text-shadow:0 0 15px #ff1760;
+}
+
+.subtitle{
+  margin-top:12px;
+  color:#aaa;
+  letter-spacing:3px;
+  font-size:14px;
+}
+
+.key-icon{
+  margin:24px auto 8px;
+  font-size:27px;
+}
+
+.key-input{
+  width:100%;
+  height:58px;
+  border:1px solid #333;
+  border-radius:17px;
+  background:#030305;
+  color:#fff;
+  padding:0 18px;
+  text-align:center;
+  outline:none;
+  font-size:16px;
+}
+
+.key-input:focus{
+  border-color:#ff1760;
+  box-shadow:0 0 15px rgba(255,0,80,.25);
+}
+
+.confirm{
+  width:100%;
+  height:62px;
+  margin-top:25px;
+  border:0;
+  border-radius:18px;
+  background:#ff1760;
+  color:#fff;
+  font-size:18px;
+  font-weight:bold;
+  letter-spacing:2px;
+  box-shadow:0 0 25px rgba(255,0,80,.4);
+}
+
+.confirm:active{
+  transform:scale(.98);
+}
+
+.error{
+  display:none;
+  color:#ff456f;
+  margin-top:12px;
+  font-size:13px;
+}
+
+.admin{
+  margin-top:60px;
+  padding-top:25px;
+  border-top:1px dashed #292929;
+  color:#888;
+  font-size:13px;
+}
+
+/* ================= MAIN ================= */
+
+#main{
+  display:none;
+}
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 5px 22px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.mini-logo{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  border:1px solid #ff1760;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ff1760;
+  font-weight:900;
+  box-shadow:0 0 15px rgba(255,0,80,.3);
+}
+
+.brand-text b{
+  display:block;
+  font-size:18px;
+}
+
+.brand-text span{
+  color:#888;
+  font-size:12px;
+}
+
+.status{
+  padding:10px 15px;
+  border:1px solid #ff1760;
+  border-radius:14px;
+  color:#ff3c73;
+  background:rgba(255,0,80,.07);
+  box-shadow:0 0 15px rgba(255,0,80,.15);
+  font-size:12px;
+}
+
+.section{
+  color:#7f8490;
+  font-size:13px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin:12px 3px;
+}
+
+/* FEATURES */
+
+.feature{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:82px;
+  padding:14px 16px 14px 20px;
+  margin:12px 0;
+  border:1px solid #27272e;
+  border-radius:20px;
+  background:linear-gradient(120deg,#0c0c10,#09090c);
+  overflow:hidden;
+}
+
+.feature.active{
+  border-color:#6d1937;
+  box-shadow:0 0 18px rgba(255,0,80,.09);
+}
+
+.feature.active:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#ff1760;
+  box-shadow:0 0 15px #ff1760;
+}
+
+.info{
+  padding-right:15px;
+}
+
+.name{
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.active .name{
+  color:#ff3970;
+}
+
+.desc{
+  color:#777;
+  font-size:13px;
+  margin-top:7px;
+}
+
+/* SWITCH */
+
+.switch{
+  flex:none;
+  width:61px;
+  height:34px;
+  border-radius:30px;
+  border:1px solid #444;
+  background:#15151a;
+  position:relative;
+}
+
+.switch i{
+  position:absolute;
+  width:24px;
+  height:24px;
+  top:4px;
+  left:5px;
+  border-radius:50%;
+  background:#999;
+  transition:.25s;
+}
+
+.active .switch{
+  border-color:#8e2148;
+  background:#30101e;
+}
+
+.active .switch i{
+  left:31px;
+  background:#ff2466;
+  box-shadow:0 0 14px #ff1760;
+}
+
+/* SLIDERS */
+
+.slider-card{
+  padding:20px;
+  margin:13px 0;
+  border:1px solid #29292f;
+  border-radius:22px;
+  background:#09090c;
+}
+
+.slider-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.slider-name{
+  font-size:16px;
+  font-weight:bold;
+}
+
+.value{
+  color:#ff3970;
+  font-weight:bold;
+}
+
+input[type=range]{
+  width:100%;
+  height:5px;
+  appearance:none;
+  background:#29292e;
+  border-radius:10px;
+  outline:none;
+}
+
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:#fff;
+  border:4px solid #ff2466;
+  box-shadow:0 0 15px #ff1760;
+}
+
+/* BOTTOM NAV */
+
+.nav{
+  position:fixed;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(calc(100% - 30px),450px);
+  padding:9px;
+  display:flex;
+  gap:6px;
+  border:1px solid #29292f;
+  border-radius:22px;
+  background:rgba(10,10,14,.95);
+  backdrop-filter:blur(15px);
+}
+
+.nav button{
+  flex:1;
+  height:62px;
+  border:0;
+  border-radius:15px;
+  background:transparent;
+  color:#707581;
+  font-weight:bold;
+}
+
+.nav button.active{
+  color:#ff3970;
+  background:#260b17;
+  box-shadow:inset 0 0 20px rgba(255,0,80,.08);
+}
+
+.page{
+  display:none;
+}
+
+.page.show{
+  display:block;
+}
+
+.toast{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%) translateY(-100px);
+  width:260px;
+  padding:15px;
+  text-align:center;
+  border:1px solid #ff1760;
+  border-radius:15px;
+  background:#111117;
+  color:#fff;
+  transition:.35s;
+  z-index:99;
+  box-shadow:0 0 25px rgba(255,0,80,.3);
+}
+
+.toast.show{
+  transform:translateX(-50%) translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<div id="login">
+  <div class="app">
+    <div class="login-box">
+
+      <div class="logo">ZT</div>
+
+      <div class="title">ZTECH</div>
+      <div class="subtitle">LICENSE VERIFICATION</div>
+
+      <div class="key-icon">🔑</div>
+
+      <input
+        id="key"
+        class="key-input"
+        type="password"
+        placeholder="NHẬP KEY BẢN QUYỀN"
+      >
+
+      <button class="confirm" onclick="checkKey()">
+        🔒 XÁC NHẬN
+      </button>
+
+      <div id="error" class="error">
+        KEY KHÔNG HỢP LỆ
+      </div>
+
+      <div class="admin">
+        ⓘ Liên hệ admin để mua key
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div id="main">
+
+  <div class="app">
+
+    <header class="header">
+      <div class="brand">
+        <div class="mini-logo">ZT</div>
+        <div class="brand-text">
+          <b>ZTECH</b>
+          <span>Mobile Optimizer • CONNECTED</span>
+        </div>
+      </div>
+
+      <div class="status">● ONLINE</div>
+    </header>
+
+
+    <!-- CHỨC NĂNG -->
+    <div id="functions" class="page show">
+
+      <div class="section">⚙ OPTIMIZATION</div>
+
+      <div class="feature active" onclick="toggle(this,'AIM LOCK')">
+        <div class="info">
+          <div class="name">🎯 AIM LOCK</div>
+          <div class="desc">Khóa tâm bám mục tiêu tự động</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="feature active" onclick="toggle(this,'SENSIVITY BOOSTER')">
+        <div class="info">
+          <div class="name">🎯 SENSIVITY BOOSTER</div>
+          <div class="desc">Tăng tốc phản hồi cảm ứng</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="feature active" onclick="toggle(this,'SCREEN BOOSTER')">
+        <div class="info">
+          <div class="name">▣ SCREEN BOOSTER</div>
+          <div class="desc">Tối ưu khung hình FPS</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="feature active" onclick="toggle(this,'ANCHOR AIM')">
+        <div class="info">
+          <div class="name">⚓ ANCHOR AIM</div>
+          <div class="desc">Giữ cố định điểm ngắm</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="feature" onclick="toggle(this,'FEATHER AIM')">
+        <div class="info">
+          <div class="name">🪶 FEATHER AIM</div>
+          <div class="desc">Giảm sức ý khi vuốt tâm</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="feature" onclick="toggle(this,'HEADSHOT FIX')">
+        <div class="info">
+          <div class="name">💀 HEADSHOT FIX</div>
+          <div class="desc">Hạn chế tâm vượt quá đầu</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="feature" onclick="toggle(this,'SHAKE FIX')">
+        <div class="info">
+          <div class="name">〰 SHAKE FIX</div>
+          <div class="desc">Ổn định đường ngắm</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="feature" onclick="toggle(this,'DRIFT FIX')">
+        <div class="info">
+          <div class="name">🔒 DRIFT FIX</div>
+          <div class="desc">Khóa vị trí ngắm</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+    </div>
+
+
+    <!-- GIÁM SÁT -->
+    <div id="monitor" class="page">
+
+      <div class="section">📊 PERFORMANCE MONITOR</div>
+
+      <div class="slider-card">
+        <div class="slider-top">
+          <span class="slider-name">〰 SMOOTH</span>
+          <span class="value" id="smoothVal">10</span>
+        </div>
+        <input type="range" min="0" max="10" value="10"
+               oninput="smoothVal.textContent=this.value">
+      </div>
+
+      <div class="slider-card">
+        <div class="slider-top">
+          <span class="slider-name">⚡ SPEED</span>
+          <span class="value" id="speedVal">5</span>
+        </div>
+        <input type="range" min="0" max="10" value="5"
+               oninput="speedVal.textContent=this.value">
+      </div>
+
+      <div class="section">⚙ HARDWARE TUNING</div>
+
+      <div class="slider-card">
+        <div class="slider-top">
+          <span class="slider-name">🔥 CHẾ ĐỘ TĂNG TỐC</span>
+          <span class="value">HIỆU NĂNG</span>
+        </div>
+        <input type="range" min="0" max="10" value="10">
+      </div>
+
+      <div class="slider-card">
+        <div class="slider-top">
+          <span class="slider-name">🎯 DPI TRICK TARGET</span>
+          <span class="value" id="dpiVal">2.0x</span>
+        </div>
+        <input type="range" min="1" max="3" step=".1" value="2"
+               oninput="dpiVal.textContent=this.value+'x'">
+      </div>
+
+    </div>
+
+
+    <!-- THIẾT LẬP -->
+    <div id="settings" class="page">
+
+      <div class="section">⚙ SETTINGS</div>
+
+      <div class="feature active">
+        <div class="info">
+          <div class="name">🔔 HIỆU ỨNG ÂM THANH</div>
+          <div class="desc">Âm thanh khi bật/tắt chức năng</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="feature active">
+        <div class="info">
+          <div class="name">📱 IOS MODE</div>
+          <div class="desc">Giao diện tối ưu cho màn hình điện thoại</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="feature">
+        <div class="info">
+          <div class="name">🔒 AUTO LOCK</div>
+          <div class="desc">Tự động khóa giao diện</div>
+        </div>
+        <div class="switch"><i></i></div>
+      </div>
+
+      <div class="slider-card">
+        <div class="slider-top">
+          <span class="slider-name">🌙 ĐỘ SÁNG GIAO DIỆN</span>
+          <span class="value">100%</span>
+        </div>
+        <input type="range" min="20" max="100" value="100">
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <nav class="nav">
+    <button class="active" onclick="page('functions',this)">
+      ☷<br>CHỨC NĂNG
+    </button>
+
+    <button onclick="page('monitor',this)">
+      ⌁<br>GIÁM SÁT
+    </button>
+
+    <button onclick="page('settings',this)">
+      ⚙<br>THIẾT LẬP
+    </button>
+  </nav>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+const KEY = "hkhoi";
+
+function checkKey(){
+
+  const input = document.getElementById("key").value.trim();
+  const error = document.getElementById("error");
+
+  if(input === KEY){
+
+    document.getElementById("login").style.display="none";
+    document.getElementById("main").style.display="block";
+
+    showToast("✓ KEY HỢP LỆ • CONNECTED");
+
+  }else{
+
+    error.style.display="block";
+
+    setTimeout(()=>{
+      error.style.display="none";
+    },1800);
+
+  }
+}
+
+document.getElementById("key").addEventListener("keydown",e=>{
+  if(e.key==="Enter") checkKey();
+});
+
+
+function toggle(el,name){
+
+  el.classList.toggle("active");
+
+  const on = el.classList.contains("active");
+
+  showToast(
+    name + (on ? " • BẬT" : " • TẮT")
+  );
+}
+
+
+function page(id,btn){
+
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("show");
+  });
+
+  document.getElementById(id).classList.add("show");
+
+  document.querySelectorAll(".nav button").forEach(b=>{
+    b.classList.remove("active");
+  });
+
+  btn.classList.add("active");
+}
+
+
+function showToast(text){
+
+  const toast=document.getElementById("toast");
+
+  toast.textContent=text;
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },1600);
+}
+
+</script>
+
+</body>
+</html>
